@@ -1,0 +1,124 @@
+@keyframes change_colors {
+    0%   {color: cyan;}
+    25%  {color: yellow;}
+    50%  {color: purple;}
+    75% {color: lightgreen;}
+    100%   {color: cyan;}
+}
+
+@keyframes change_colors_2 {
+    0%  {color: white;}
+    50%   {color: cyan;}
+    100% {color: white;}
+}
+
+body {
+    font-family: Monospace !important;
+    margin: 0px;
+    overflow: hidden;
+    color: white;
+    font-size: 40px;
+}
+.info {
+    position: fixed;
+    padding: 20px;
+}
+a, #menu-button {
+    animation-name: change_colors_2;
+    animation-duration: 1.25s;
+    animation-iteration-count: infinite;
+    color: grey;
+}
+
+.delay-1 {
+    animation-delay: 250ms;
+}
+.delay-2 {
+    animation-delay: 500ms;
+}
+.delay-3 {
+    animation-delay: 750ms;
+}
+.delay-4 {
+    animation-delay: 1s;
+}
+.delay-5 {
+    animation-delay: 1.25s;
+}
+
+.delay-6 {
+    animation-delay: 1.5s;
+}
+
+.delay-7 {
+    animation-delay: 1.75s;
+}
+
+.delay-8 {
+    animation-delay: 2s;
+}
+
+.delay-9 {
+    animation-delay: 2.25s;
+}
+
+.delay-10 {
+    animation-delay: 2.5s;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.middle {
+    left: 100px;
+    right: 100px; 
+}
+
+span {
+    animation-name: change_colors;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+}
+
+.role {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.brand {
+    font-size: 20px;
+}
+
+.menu {
+    position: absolute;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10vh;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.47);
+    font-size: 30px;
+}
+.menu a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/*# sourceMappingURL=main.css.map*/
