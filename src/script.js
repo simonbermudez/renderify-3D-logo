@@ -135,7 +135,7 @@ function init() {
     // GLTF model loading
     const gltfLoader = new GLTFLoader();
     gltfLoader.load(
-        '/models/renderify/renderify.gltf',
+        './models/renderify/renderify.gltf',
         (gltf) => {
             const model = gltf.scene;
             // You can modify the model here if needed
