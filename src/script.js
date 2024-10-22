@@ -10,6 +10,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 
 var camera, scene, renderer,
 light1, light2, light3, light4, light5, light6, light7,
@@ -124,9 +126,16 @@ function init() {
     
     const halftonePass = new HalftonePass( window.innerWidth, window.innerHeight, params );
     
+    // Add FXAA pass
+    const fxaaPass = new ShaderPass(FXAAShader);
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (window.innerWidth * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (window.innerHeight * pixelRatio);
+
     composer.addPass(renderPass);
     composer.addPass(bloomPass);
-	composer.addPass(glitchPass);
+    composer.addPass(glitchPass);
+    composer.addPass(fxaaPass);  // Add FXAA as the last pass
 
     setTimeout(() => composer.removePass(glitchPass), 1000)
     // composer.addPass( halftonePass );
@@ -173,6 +182,13 @@ function onWindowResize() {
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
+    // Update FXAA uniforms
+    const fxaaPass = composer.passes.find(pass => pass.name === 'ShaderPass' && pass.material.uniforms['resolution']);
+    if (fxaaPass) {
+        const pixelRatio = renderer.getPixelRatio();
+        fxaaPass.material.uniforms['resolution'].value.x = 1 / (window.innerWidth * pixelRatio);
+        fxaaPass.material.uniforms['resolution'].value.y = 1 / (window.innerHeight * pixelRatio);
+    }
 }
 
 function animate() {
@@ -231,9 +247,3 @@ window.addEventListener('resize', function(event){
     onWindowResize()
 });
 
-// Optional: Function to center the model
-function centerModel(model) {
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
-    model.position.sub(center);
-}
